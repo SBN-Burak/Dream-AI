@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <title>Dream AI</title>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="navbar-brand">
+                <img src="https://em-content.zobj.net/thumbs/160/google/208/sparkles_2728.gif" alt="Logo" width="30"
+                    height="24" class="d-inline-block align-text-top bs-light-text-emphasis">
+                Dream AI
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <%= locals.userName %>
+                </button>
+                <ul class="dropdown-menu w-2">
+                    <li><a class="dropdown-item" href="">Profil</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="http://localhost:3000/auth/logout">Çıkış Yap</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</head>
+
+<body>
+    <form action="/py" method="post" class="container">
+        <textarea type="text" name="ruyatextarea" id="textarea" maxlength="2000" placeholder="Rüyamda.."></textarea>
+        <div id="the-count">
+            <span class="character_gosterici" id="current">0</span>
+            <span class="character_gosterici" id="maximum">/ 2000</span>
+        </div>
+        <input type="submit" value="Yorumla" id="button_yorumla">
+    </form>
+    <div id="loadingBar" class="d-flex justify-content-center">
+        <div class="spinner-border text-light" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <hr>
+    <div class="result_field_div">
+        <p id="result_field">
+            <%= locals.outputText %>
+        </p>
+    </div>
+    <script>
+        document.getElementById('textarea').addEventListener('input', function () {
+            var characterCount = this.value.length;
+            var maximum = this.getAttribute('maxlength');
+            var current = document.getElementById('current');
+            current.textContent = characterCount;
+        });
+    </script>
+</body>
+
+<style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 130px;
+    }
+
+    .result_field_div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .result_field {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        padding: 40px 100px;
+        font-family: 'Barlow Condensed', sans-serif;
+        width: 50%;
+        border: 8px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .character_gosterici {
+        color: rgb(255, 255, 255);
+    }
+
+    body {
+        background-image: url("/images/bg.jpg");
+        background-size: cover;
+    }
+
+    hr {
+        border: 4px solid rgba(0, 0, 0, 0.3);
+    }
+
+    .dropdown-menu {
+        width: 3px;
+    }
+
+    #header_text {
+        color: rgb(255, 255, 255);
+        justify-content: center;
+        text-align: center;
+        font-size: 70px;
+        font-weight: 100;
+        font-family: 'Barlow Condensed', sans-serif;
+    }
+
+    #textarea {
+        border: 3px solid rgba(0, 0, 0, 0.175);
+        border-radius: 5px;
+        box-sizing: border-box;
+        width: 60%;
+        height: 300px;
+        font-size: 16px;
+        resize: none;
+        padding: 12px 20px;
+        margin-bottom: 10px;
+        box-shadow: 0px 3px rgba(0, 0, 0, 0.403);
+    }
+
+    #button_yorumla {
+        width: 75px;
+        height: 40px;
+        border-radius: 3px;
+        background-color: rgb(255, 255, 255);
+        border-color: rgb(212, 212, 212);
+        color: rgb(81, 81, 81);
+        margin-top: 50px;
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 20px;
+        box-shadow: 0px 1px rgba(0, 0, 0, 0.403);
+    }
+</style>
+
+</html>
