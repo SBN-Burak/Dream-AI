@@ -16,8 +16,6 @@
     <nav class="navbar">
         <div class="container-fluid">
             <div class="navbar-brand">
-                <img src="https://em-content.zobj.net/thumbs/160/google/208/sparkles_2728.gif" alt="Logo" width="30"
-                    height="24" class="d-inline-block align-text-top bs-light-text-emphasis">
                 Dream AI
             </div>
             <div class="dropdown">
@@ -38,7 +36,8 @@
 </head>
 
 <body>
-    <form action="/py" method="post" class="container">
+    <h3 id="header_text">Hoşgeldiniz</h3>
+    <form action="/auth/playground" method="post" class="container">
         <textarea type="text" name="ruyatextarea" id="textarea" maxlength="2000" placeholder="Rüyamda.."></textarea>
         <div id="the-count">
             <span class="character_gosterici" id="current">0</span>
@@ -65,6 +64,25 @@
             var current = document.getElementById('current');
             current.textContent = characterCount;
         });
+    </script>
+    <script>
+        function updateParagraph() {
+            const ruyatextarea = document.getElementById('textarea').value;
+            fetch('/py', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ruyatextarea }), // Pass the textarea value as JSON data
+            })
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('result_field').textContent = outputText;
+                })
+                .catch(error => {
+                    console.error('Error updating paragraph:', error);
+                });
+        }
     </script>
 </body>
 
@@ -122,8 +140,8 @@
     }
 
     #textarea {
-        border: 3px solid rgba(0, 0, 0, 0.175);
-        border-radius: 5px;
+        border: 2px solid rgba(0, 0, 0, 0.175);
+        border-radius: 4px;
         box-sizing: border-box;
         width: 60%;
         height: 300px;
@@ -145,6 +163,15 @@
         font-family: 'Barlow Condensed', sans-serif;
         font-size: 20px;
         box-shadow: 0px 1px rgba(0, 0, 0, 0.403);
+    }
+
+    #header_text {
+        color: rgb(255, 255, 255);
+        justify-content: center;
+        text-align: center;
+        font-size: 70px;
+        font-weight: 100;
+        font-family: 'Barlow Condensed', sans-serif;
     }
 </style>
 

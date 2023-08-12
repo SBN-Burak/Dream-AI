@@ -6,26 +6,17 @@ app.set("view engine", "ejs");
 app.use(express.static('views'));
 app.use(express.static('public'));
 
-// Ödeme Formu
-//const billingsRouter = require("./routes/billings");
-//app.use("/billings", billingsRouter);
+// Stripe
+const stripe = require("./routes/stripe");
+app.use("/stripe", stripe);
 
-// Python Kodu
-const pyRouter = require("./routes/py");
-app.use("/py", pyRouter);
-
-// Google OAuth2 (password.js)
+// Google OAuth2 (password.js) & (python-shell)
 const authRouter = require("./routes/auth");
 app.use("/auth", authRouter);
 
 // Anasayfa
 app.get("/", (req, res) => {
     res.render("homepage");
-});
-
-// Playground
-app.get("/playground", (req, res) => {
-    res.render("playground");
 });
 
 app.listen(3000, () => {

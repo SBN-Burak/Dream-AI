@@ -1,79 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dream AI | Billings</title>
+    <title>Buy cool new product</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 
 <body>
-    <style>
-        body {
-            background-image: url("/images/bg.jpg");
-            background-size: cover;
-        }
-    </style>
-    <script type="text/javascript">
-        if (typeof iyziInit == 'undefined') {
-            var iyziInit = {
-                currency: "TRY",
-                token: "b7eb12af-b631-44a9-9e98-122829c1f3c9",
-                price: 10,
-                locale: "tr",
-                baseUrl: "https://sandbox-api.iyzipay.com",
-                merchantGatewayBaseUrl: "https://sandbox-merchantgw.iyzipay.com",
-                registerCardEnabled: true,
-                bkmEnabled: false,
-                bankTransferEnabled: false,
-                bankTransferTimeLimit: { "value": 5, "type": "day" },
-                bankTransferRedirectUrl: "https://www.merchant.com/callback",
-                bankTransferCustomUIProps: {},
-                campaignEnabled: false,
-                campaignMarketingUiDisplay: null,
-                paymentSourceName: "",
-                plusInstallmentResponseList: null,
-                payWithIyzicoSingleTab: false,
-                payWithIyzicoOneTab: false,
-                mixPaymentEnabled: true,
-                creditCardEnabled: true,
-                bankTransferAccounts: [],
-                userCards: [],
-                fundEnabled: false,
-                memberCheckoutOtpData: {},
-                force3Ds: false,
-                isSandbox: true,
-                storeNewCardEnabled: true,
-                paymentWithNewCardEnabled: true,
-                enabledApmTypes: [],
-                payWithIyzicoUsed: false,
-                payWithIyzicoEnabled: true,
-                payWithIyzicoCustomUI: {},
-                buyerName: "John",
-                buyerSurname: "Doe",
-                merchantInfo: "https://iyzico.com",
-                merchantName: "Sandbox Merchant Name - 47818",
-                cancelUrl: "",
-                buyerProtectionEnabled: false,
-                hide3DS: false,
-                gsmNumber: "",
-                email: "email@email.com",
-                checkConsumerDetail: {},
-                subscriptionPaymentEnabled: false,
-                ucsEnabled: false,
-                fingerprintEnabled: false,
-                payWithIyzicoFirstTab: false,
-                creditEnabled: false,
-                payWithIyzicoLead: false,
-                goBackUrl: "", metadata: {},
-                createTag: function () {
-                    var iyziJSTag = document.createElement('script');
-                    iyziJSTag.setAttribute('src', 'https://sandbox-static.iyzipay.com/checkoutform/v2/bundle.js?v=1690555676454');
-                    document.head.appendChild(iyziJSTag);
-                }
-            };
-            iyziInit.createTag();
-        }</script>
+    <section>
+        <div class="product">
+            <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+            <div class="description">
+                <h3>Stubborn Attachments</h3>
+                <h5>$20.00</h5>
+            </div>
+        </div>
+        <form action="/stripe" method="post">
+            <button type="submit" id="checkout-button">Checkout</button>
+        </form>
+    </section>
 </body>
 
 </html>
