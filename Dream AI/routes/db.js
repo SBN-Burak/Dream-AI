@@ -39,7 +39,7 @@ function InsertUser(gmail, token) {
             }
 
             if (row) {
-                console.error('This User Already Exists!!!!');
+                //console.error('This User Already Exists!!!!');
                 db.close();
                 return;
             }

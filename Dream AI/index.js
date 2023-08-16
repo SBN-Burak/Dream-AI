@@ -6,13 +6,13 @@ app.set("view engine", "ejs");
 app.use(express.static('views'));
 app.use(express.static('public'));
 
-// Stripe
-const stripe = require("./routes/stripe");
-app.use("/stripe", stripe);
-
 // Google OAuth2 (password.js) & (python-shell)
 const authRouter = require("./routes/auth");
 app.use("/auth", authRouter);
+
+// Payment (İyzipay)
+const payRouter = require("./routes/pay");
+app.use("/pay", payRouter);
 
 // Anasayfa
 app.get("/", (req, res) => {
