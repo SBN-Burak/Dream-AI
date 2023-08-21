@@ -18,8 +18,8 @@ var request = {
     paidPrice: '1.2',
     currency: Iyzipay.CURRENCY.TRY,
     basketId: 'B67832',
-    paymentGroup: Iyzipay.PAYMENT_GROUP.PRODUCT,
-    callbackUrl: 'https://www.merchant.com/callback',
+    paymentGroup: Iyzipay.PAYMENT_GROUP.LISTING,
+    callbackUrl: 'http://localhost:3000/pay',
     enabledInstallments: [2, 3, 6, 9],
     buyer: {
         id: 'BY789',
@@ -78,17 +78,27 @@ var request = {
     ]
 };
 
-
 router.get("/", (req, res) => {
     iyzipay.checkoutFormInitialize.create(request, function (err, result) {
-        console.log(result);
-        //console.log(result.checkoutFormContent);
 
-        //res.send(result.checkoutFormContent + '<div id="iyzipay-checkout-form" class="responsive"></div>')
+        //console.log(result);
+        //iyziInit.token = result.token;
+        //console.log(result.checkoutFormContent + '<div id="iyzipay-checkout-form" class="responsive"></div>');
+        let formContent = result.checkoutFormContent;
+        formContent.token = request.token;
+        res.render("payment", { form: formContent });
+
     });
-    res.render("payment");
 
 });
 
+router.post("/", (req, res) => {
+    iyzipay.checkoutForm.retrieve({
+        token: 'token'
+    }, function (err, result) {
+        console.log(result);
+        res.json(result);
+    });
+});
 
 module.exports = router;

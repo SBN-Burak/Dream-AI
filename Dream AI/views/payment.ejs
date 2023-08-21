@@ -8,70 +8,19 @@
 </head>
 
 <body>
-    <script type="text/javascript">
-        if (typeof iyziInit == 'undefined') {
-            var iyziInit = {
-                currency: "TRY", token: "463ea79a-2b29-455a-a2a3-17552e8539ca",
-                price: 1.2,
-                locale: "tr",
-                baseUrl: "https://sandbox-api.iyzipay.com",
-                merchantGatewayBaseUrl: "https://sandbox-merchantgw.iyzipay.com",
-                registerCardEnabled: true,
-                bkmEnabled: false,
-                bankTransferEnabled: false,
-                bankTransferTimeLimit: { "value": 5, "type": "day" },
-                bankTransferRedirectUrl: "http://localhost:3000/",
-                bankTransferCustomUIProps: {},
-                campaignEnabled: false,
-                campaignMarketingUiDisplay: null,
-                paymentSourceName: "",
-                plusInstallmentResponseList: null,
-                payWithIyzicoSingleTab: false,
-                payWithIyzicoOneTab: false,
-                mixPaymentEnabled: true,
-                creditCardEnabled: true,
-                bankTransferAccounts: [],
-                userCards: [],
-                fundEnabled: false,
-                memberCheckoutOtpData: {},
-                force3Ds: false,
-                isSandbox: true,
-                storeNewCardEnabled: true,
-                paymentWithNewCardEnabled: true,
-                enabledApmTypes: [],
-                payWithIyzicoUsed: false,
-                payWithIyzicoEnabled: true,
-                payWithIyzicoCustomUI: {},
-                buyerName: "John",
-                buyerSurname: "Doe",
-                merchantInfo: "https://iyzico.com",
-                merchantName: "Sandbox Merchant Name - 47818",
-                cancelUrl: "",
-                buyerProtectionEnabled: false,
-                hide3DS: false,
-                gsmNumber: "",
-                email: "email@email.com",
-                checkConsumerDetail: {},
-                subscriptionPaymentEnabled: false,
-                ucsEnabled: false,
-                fingerprintEnabled: false,
-                payWithIyzicoFirstTab: false,
-                creditEnabled: false,
-                payWithIyzicoLead: false,
-                goBackUrl: "",
-                metadata: {},
-                createTag: function () {
-                    var iyziJSTag = document.createElement('script');
-                    iyziJSTag.setAttribute('src', 'https://sandbox-static.iyzipay.com/checkoutform/v2/bundle.js?v=1692201859115');
-                    document.head.appendChild(iyziJSTag);
-                }
-            };
-
-            iyziInit.createTag();
-        }
-    </script>
+    <!-- 
+    <div>
+        <%- //locals.form %>
+    </div>
 
     <div id="iyzipay-checkout-form" class="responsive"></div>
+
+    -->
+
+    <script src="https://www.paytr.com/js/iframeResizer.min.js"></script>
+    <iframe src="https://www.paytr.com/odeme/guvenli/iframe_token" id="paytriframe" frameborder="0" scrolling="no"
+        style="width: 100%;"></iframe>
+    <script>iFrameResize({}, '#paytriframe');</script>
 
     <style>
         body {

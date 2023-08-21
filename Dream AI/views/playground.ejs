@@ -19,6 +19,10 @@
                 ✨Dream AI
             </div>
             <div class="dropdown">
+                <button id="tokenButton" class="btn btn-light">
+                    Jeton: <%= locals.token %>
+                </button>
+                </button>
                 <button id="girisyapbutton" class="btn btn-light dropdown-toggle" type="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <%= locals.userName %>
@@ -38,7 +42,7 @@
 
 <body>
     <h2 id="header_text">Hoşgeldiniz</h2>
-    <form action="/auth/playground" method="post" class="container">
+    <form id="ruya-form" class="container">
         <textarea type="text" name="ruyatextarea" id="textarea" maxlength="2000" placeholder="Rüyamda.."></textarea>
         <div id="the-count">
             <span class="character_gosterici" id="current">0</span>
@@ -46,18 +50,37 @@
         </div>
         <input type="submit" value="Yorumla" id="button_yorumla">
     </form>
-    <div id="loadingBar" class="d-flex justify-content-center">
-        <div class="spinner-border text-light" role="status">
+    <div id="loadingBarDiv" class="d-flex justify-content-center">
+        <div id="loadingBar" class="spinner-border text-light" role="status" style="display: none;">
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
 
     <hr>
     <div class="result_field_div">
-        <p id="result_field">
-            <%= locals.outputText %>
-        </p>
+        <p id="result_field"></p>
     </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        const form = document.getElementById('ruya-form');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const content = document.getElementById('textarea').value;
+
+            showLoadingBar();
+
+            axios.post('http://localhost:3000/auth/playground', { ruyatextarea: content }) // ruyatextarea'a content'i gönderdik
+                .then(response => {
+                    document.getElementById('tokenButton').innerHTML = 'Jeton: ' + response.data['token'];
+                    document.getElementById('result_field').innerHTML = response.data['outputText'];
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                }).finally(() => {
+                    hideLoadingBar();
+                });
+        });
+    </script>
     <script>
         document.getElementById('textarea').addEventListener('input', function () {
             var characterCount = this.value.length;
@@ -67,24 +90,17 @@
         });
     </script>
     <script>
-        function updateParagraph() {
-            const ruyatextarea = document.getElementById('textarea').value;
-            fetch('/py', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ ruyatextarea }), // Pass the textarea value as JSON data
-            })
-                .then(res => res.json())
-                .then(data => {
-                    document.getElementById('result_field').textContent = outputText;
-                })
-                .catch(error => {
-                    console.error('Error updating paragraph:', error);
-                });
+        const loadingBar = document.getElementById('loadingBar');
+
+        function showLoadingBar() {
+            loadingBar.style.display = 'block';
+        }
+
+        function hideLoadingBar() {
+            loadingBar.style.display = 'none';
         }
     </script>
+
 </body>
 
 <style>
@@ -103,7 +119,7 @@
         overflow: hidden;
     }
 
-    .result_field {
+    #result_field {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -132,6 +148,11 @@
     }
 
     #girisyapbutton {
+        font-weight: 500;
+        color: rgb(0, 102, 133);
+    }
+
+    #tokenButton {
         font-weight: 500;
         color: rgb(0, 102, 133);
     }

@@ -67,38 +67,45 @@ router.get('/google/callback/',
 //db.DeleteUser("eldivas0671@gmail.com");
 //db.InsertUser("şşş@gmail.com", 8585);
 //db.PrintTable();
-//db.DecreaseUserToken("eldivas0671@gmail.com", 1);
+//db.IncreaseUserToken("eldivas0671@gmail.com", 100000000);
 
 // successRedirect
-router.get('/playground', isLoggedIn, (req, res, next) => {
+router.get('/playground', isLoggedIn, async (req, res, next) => {
 
     const name = req.user.displayName;
     const email = req.user.emails[0].value;
+    const jeton = await db.GetUserToken(`${email}`);
 
-    // eskiden bunu yapıyordum ama şimdi bunların içine koydum. Otomatik çalışıyor.
-    //db.RunDB();
     db.InsertUser(`${email}`, 0);
 
-    res.render("playground", { userName: name });
+    res.render("playground", { userName: name, token: jeton });
 });
 
-router.post('/playground', isLoggedIn, (req, res, next) => {
+router.post('/playground', isLoggedIn, async (req, res, next) => {
 
+    const email = req.user.emails[0].value;
     const name = req.user.displayName;
+    let jeton = await db.GetUserToken(email);
 
-    try {
-        const { ruyatextarea } = req.body;
-        const options = {
-            pythonPath: 'python',
-            args: [ruyatextarea], // Pass the user input as an argument to the Python script
-        };
-        PythonShell.run('deneme.py', options).then(messages => {
-            const messageText = messages.join('\n');
-            res.render("playground", { outputText: messageText, userName: name });
-        });
-    } catch (error) {
-        console.error('Error while calling Python:', error);
-        res.status(500).send('An error occurred while calling Python.');
+    if (jeton >= 1) {
+        try {
+            const { ruyatextarea } = req.body; // Bunun açılımı bu: req.body.ruyatextarea 
+            const options = {
+                pythonPath: 'python',
+                args: [ruyatextarea], // Pass the user input as an argument to the Python script
+            };
+            PythonShell.run('chatgpt.py', options).then(messages => {
+                const messageText = messages.join('\n');
+                db.DecreaseUserToken(email, 1);
+                res.send({ outputText: messageText, userName: name, token: jeton });
+            });
+        } catch (error) {
+            console.error('Error while calling Python:', error);
+            res.status(500).send('An error occurred while calling Python.');
+        }
+    }
+    else {
+        res.send({ outputText: "Yeterli Jeton Kalmadı!", userName: name, token: jeton });
     }
 });
 

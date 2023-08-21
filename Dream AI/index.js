@@ -11,12 +11,21 @@ const authRouter = require("./routes/auth");
 app.use("/auth", authRouter);
 
 // Payment (İyzipay)
-const payRouter = require("./routes/pay");
+//const payRouter = require("./routes/pay");
+//app.use("/pay", payRouter);
+
+// Payment (Paytr)
+const payRouter = require("./routes/paytr");
 app.use("/pay", payRouter);
 
 // Anasayfa
 app.get("/", (req, res) => {
     res.render("homepage");
+});
+
+// Coinbase denemesi
+app.get("/coin", (req, res) => {
+    res.redirect("https://commerce.coinbase.com/checkout/bd56a5fd-42e0-4b62-aa5a-7efc175020b9");
 });
 
 app.listen(3000, () => {

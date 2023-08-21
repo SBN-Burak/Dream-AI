@@ -1,6 +1,6 @@
-#TODO: Türkçe karakter problemi burada. API'da problem yok.
-
 import sys
+
+sys.stdout.reconfigure(encoding='utf-8')
 
 if __name__ == "__main__":
     user_input = sys.argv[1]

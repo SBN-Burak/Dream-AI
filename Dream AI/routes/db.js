@@ -57,6 +57,31 @@ function InsertUser(gmail, token) {
     });
 }
 
+async function GetUserToken(gmail) {
+
+    RunDB();
+
+    const sql = `SELECT token FROM users WHERE gmail = ?`;
+
+    const row = await new Promise((resolve, reject) => {
+        db.get(sql, [gmail], (err, row) => {
+            if (err) {
+                db.close();
+                reject(err);
+            } else {
+                db.close();
+                resolve(row);
+            }
+        });
+    });
+
+    if (row) {
+        return row.token;
+    } else {
+        return null; // User not found or no token value
+    }
+}
+
 function UpdateUser(gmail, token) {
 
     RunDB();
@@ -162,5 +187,6 @@ module.exports = {
     DeleteUser,
     PrintTotalUsers,
     IncreaseUserToken,
-    DecreaseUserToken
+    DecreaseUserToken,
+    GetUserToken
 };
