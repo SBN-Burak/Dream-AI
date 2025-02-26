@@ -62,13 +62,6 @@ router.get('/google/callback/',
     })
 );
 
-//db.PrintTotalUsers();
-//db.UpdateUser("acoopapoo@gmail.com", 1);
-//db.DeleteUser("eldivas0671@gmail.com");
-//db.InsertUser("şşş@gmail.com", 8585);
-//db.PrintTable();
-//db.IncreaseUserToken("eldivas0671@gmail.com", 100000000);
-
 // successRedirect
 router.get('/playground', isLoggedIn, async (req, res, next) => {
 
