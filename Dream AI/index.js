@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 
 // Coinbase denemesi
 app.get("/coin", (req, res) => {
-    res.redirect("https://commerce.coinbase.com/checkout/bd56a5fd-42e0-4b62-aa5a-7efc175020b9");
+    res.redirect("https://commerce.coinbase.com/checkout/.....");
 });
 
 app.listen(3000, () => {
