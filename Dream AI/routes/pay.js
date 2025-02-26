@@ -6,8 +6,8 @@ var Iyzipay = require('iyzipay');
 router.use(express.urlencoded({ extended: false }));
 
 var iyzipay = new Iyzipay({
-    apiKey: "sandbox-afXhZPW0MQlE4dCUUlHcEopnMBgXnAZI",
-    secretKey: "sandbox-wbwpzKIiplZxI3hh5ALI4FJyAcZKL6kq",
+    apiKey: "...",
+    secretKey: "...",
     uri: 'https://sandbox-api.iyzipay.com'
 });
 
